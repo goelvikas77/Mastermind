@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Processing.JS inside Webpages: Template</title>
+  </head>
+  <body>
+	<!--This draws the canvas on the webpage -->
+    <canvas id="mycanvas"></canvas>
+  </body>
+
+  <!-- Include the processing.js library -->
+  <!-- See https://khanacademy.zendesk.com/hc/en-us/articles/202260404-What-parts-of-ProcessingJS-does-Khan-Academy-support- for differences -->
+  <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
+<!--script src="js/Connect4.js"></script-->
+<script>
+	var programCode = function(processingInstance) {
+  with (processingInstance) {
+    size(600, 800);
+    frameRate(30);
+    ///////////////////////////////////////////////////////////////////
+//code {
+var NUM_ROWS = 10;
+var NUM_COLS = 4;
+var slots = [];
+var gridspacing = 35;
+var Slot = function(x , y , row , col){
+  this.x = x;
+  this.y = y;
+  this.row = row;
+  this.col = col;
+};
+
+Slot.prototype.draw = function () {
+  ellipse(this.x + 130, this.y + 135, 50 , 50);
+};
+
+  for (var i = 0 ; i < NUM_COLS ; i++) {
+    slots.push( [] );
+
+    for (var j = 0 ; j < NUM_ROWS ; j++){
+        slots[i].push(new Slot( (2*i + 1)*gridspacing , (2*j + 1)*gridspacing, i, j));
+    }
+}
+
+
+var drawGameBoard = function() {
+    fill(211, 230, 143);
+    rect(100 , 30 , 350 , 700);
+
+    for (var i = 0 ; i < NUM_COLS ; i++) {
+        for (var j = 0 ; j < NUM_ROWS ; j++){
+            slots[i][j].draw();
+        }
+    }
+
+};
+
+
+draw = function() {
+  drawGameBoard();
+}
+  ///////////////////////////////////////////////////////////////////
+   }};
+  // Get the canvas that ProcessingJS will use
+  var canvas = document.getElementById("mycanvas");
+  // Pass the function to ProcessingJS constructor
+  var processingInstance = new Processing(canvas, programCode);
+</script>
+</html>
